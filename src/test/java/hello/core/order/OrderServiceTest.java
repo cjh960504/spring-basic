@@ -1,0 +1,34 @@
+package hello.core.order;
+
+import hello.core.AppConfig;
+import hello.core.member.Grade;
+import hello.core.member.Member;
+import hello.core.member.MemberService;
+import hello.core.member.MemberServiceImpl;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+public class OrderServiceTest {
+    MemberService memberService ;
+    OrderService orderService ;
+
+    @BeforeEach
+    void 생성주입(){
+        AppConfig appConfig = new AppConfig();
+        memberService = appConfig.memberService();;
+        orderService = appConfig.orderService();
+    }
+
+    @Test
+    void createOrder(){
+
+        //long 타입으로 할 시, null이 들어갈 수 없으므로 wrapper 타입을 쓴다.
+        Long memberId = 1L;
+        Member member = new Member(memberId, "memberA", Grade.VIP);
+        memberService.join(member);
+
+        Order order = orderService.createOrder(memberId, "itemA", 10000);
+        Assertions.assertThat(order.getDiscountAmount()).isEqualTo(1000);
+    }
+}
