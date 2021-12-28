@@ -3,8 +3,10 @@ package hello.core.beanfind;
 import hello.core.AppConfig;
 import hello.core.member.MemberService;
 import hello.core.member.MemberServiceImpl;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -37,8 +39,7 @@ public class ApplicationContextBasicFindTest {
     @Test
     @DisplayName("빈 이름으로 조회 X")
     void findByNameX(){
-        MemberService xxxx = ac.getBean("XXXX", MemberService.class);
-        assertThat(xxxx).isInstanceOf(MemberService.class);
+        Assertions.assertThrows(NoSuchBeanDefinitionException.class, () -> ac.getBean("XXXX", MemberService.class));
     }
 
 }
