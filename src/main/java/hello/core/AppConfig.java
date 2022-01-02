@@ -14,27 +14,30 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AppConfig {
+    //@Bean memberService -> new MememoryMemberRepository()
+    //@Bean orderSerivce -> new MememoryMemberRepository()
+    // 싱글톤이 깨지는 코드가 이닌지?
 
     @Bean
     public MemberRepository memberRepository(){
+        System.out.println("call AppConfig.memberRepository");
         return new MemoryMemberRepository();
     }
 
     @Bean
     public MemberService memberService(){
+        System.out.println("call AppConfig.memberService");
         return new MemberServiceImpl(memberRepository());
+    }
+
+    @Bean
+    public OrderService orderService(){
+        System.out.println("call AppConfig.orderService");
+        return new OrderServiceImpl(memberRepository(), discountPolicy());
     }
 
     @Bean
     public DiscountPolicy discountPolicy(){
         return new RateDiscountPolicy();//new FixDiscountPolicy();
     }
-
-    @Bean
-    public OrderService orderService(){
-        return new OrderServiceImpl(memberRepository(), discountPolicy());
-    }
-
-
-
 }
