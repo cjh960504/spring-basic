@@ -1,18 +1,20 @@
 package hello.core.discount;
 
 import hello.core.member.Grade;
-        import hello.core.member.Member;
+import hello.core.member.Member;
+import org.springframework.stereotype.Component;
 
-public class RateDiscountPolicy implements DiscountPolicy{
+@Component
+public class RateDiscountPolicy implements DiscountPolicy {
 
     private int discountPersent = 10;
 
     @Override
     public int disCount(Member member, int price) {
 
-        if(member.getGrade() == Grade.VIP){
+        if (member.getGrade() == Grade.VIP) {
             return price * discountPersent / 100;
-        }else{
+        } else {
             return 0;
         }
     }
