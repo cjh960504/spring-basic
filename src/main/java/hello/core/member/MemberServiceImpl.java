@@ -12,10 +12,10 @@ public class MemberServiceImpl implements MemberService{
 
         
       //의존관계 주입 : 필드 이용
-      @Autowired private MemberRepository memberRepository;
+      //@Autowired private MemberRepository memberRepository;
+      private final MemberRepository memberRepository;
 
-      private Member member;
-
+//      @Autowired //생성자가 1개일 땐, 안 써줘도 자동 주입
       public MemberServiceImpl(MemberRepository memberRepository) {
           this.memberRepository = memberRepository;
       }
