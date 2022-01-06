@@ -1,15 +1,29 @@
 package hello.core.member;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.beanvalidation.OptionalValidatorFactoryBean;
+
+import java.util.Optional;
 
 @Component
 public class MemberServiceImpl implements MemberService{
 
-    private MemberRepository memberRepository;
+        
+      //의존관계 주입 : 필드 이용
+      @Autowired private MemberRepository memberRepository;
 
-    public MemberServiceImpl(MemberRepository memberRepository) {
-        this.memberRepository = memberRepository;
-    }
+      private Member member;
+
+      public MemberServiceImpl(MemberRepository memberRepository) {
+          this.memberRepository = memberRepository;
+      }
+
+//    @Autowired //의존관계 주입 : setMethod 이용 (자바빈 프로퍼티 사용)
+//    public void setMemberRepository(MemberRepository memberRepository) {
+//        this.memberRepository = memberRepository;
+//    }
 
     @Override
     public void join(Member member) {

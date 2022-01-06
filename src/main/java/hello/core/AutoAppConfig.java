@@ -15,8 +15,8 @@ import org.springframework.context.annotation.FilterType;
         excludeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = Configuration.class)
 ) //@Component 붙은 클래스를 찾아 자동으로 스프링 컨테이너에 등록
 public class AutoAppConfig {
-    @Bean
+/*    @Bean
     public MemoryMemberRepository memoryMemberRepository(){
         return new MemoryMemberRepository();
-    }
+    }*/
 }
