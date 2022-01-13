@@ -6,19 +6,23 @@ import hello.core.discount.RateDiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemoryMemberRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
+//@RequiredArgsConstructor //final이 붙은 필드를 대상으로 생성자를 자동으로 만들어줌
 public class OrderServiceImpl implements OrderService{
 
     private final MemberRepository memberRepository;
     //private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
     //private final DiscountPolicy discountPolicy = new RateDiscountPolicy();
-    private final DiscountPolicy discountPolicy;
+    private final DiscountPolicy discountPolicy; //@Autowired 특징으로 값은 타입 매칭 후, 필드명 또한 파라미터 이름을 통해 빈을 매칭한다.
 
-    @Autowired //의존관계 주입 : 생성자 주입
-    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+
+    @Autowired //의존관계 주입 : 생성자 주입 , 추가 구분자 @Qalifier 이용하여 같은 타입 여러 빈 구분하기
+    public OrderServiceImpl(MemberRepository memberRepository,  @Qualifier("fixDiscountPolicy") DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }
