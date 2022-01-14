@@ -15,9 +15,9 @@ import org.springframework.stereotype.Component;
 //@RequiredArgsConstructor //final이 붙은 필드를 대상으로 생성자를 자동으로 만들어줌
 public class OrderServiceImpl implements OrderService{
 
-    private final MemberRepository memberRepository;
-    //private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
-    //private final DiscountPolicy discountPolicy = new RateDiscountPolicy();
+    //오직 생성자 주입 방식만이 final을 사용할 수 있다.
+    //생성자 주입 시 좋은 점 중 하나로 final을 넣어주면 컴파일 단계에서 오류를 띄워줌
+    private final MemberRepository memberRepository;;
     private final DiscountPolicy discountPolicy; //@Autowired 특징으로 값은 타입 매칭 후, 필드명 또한 파라미터 이름을 통해 빈을 매칭한다.
 
 
@@ -27,11 +27,22 @@ public class OrderServiceImpl implements OrderService{
         this.discountPolicy = discountPolicy;
     }
 
- /*   @Autowired //의존관계 주입 : 일반 메서드 주입
-    public void init(MemberRepository memberRepository, OrderService orderService) {
+    /*   @Autowired //의존관계 주입 : 일반 메서드 주입
+       public void init(MemberRepository memberRepository, OrderService orderService) {
+           this.memberRepository = memberRepository;
+           this.discountPolicy = discountPolicy;
+       }*/
+
+    /*@Autowired
+    public void setMemberRepository(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
+    }
+
+    @Autowired
+    public void setDiscountPolicy(DiscountPolicy discountPolicy) {
         this.discountPolicy = discountPolicy;
     }*/
+
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
